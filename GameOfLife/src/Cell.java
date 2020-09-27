@@ -24,6 +24,13 @@ public class Cell {
 				down = origin;
 			}
 		}
+		else if (origin.y == this.y) {
+			if (this.x - origin.x == 1) {
+				left = origin;
+			} else if (this.x - origin.x == -1) {
+				right = origin;
+			}
+		}
 	}
 
 }
