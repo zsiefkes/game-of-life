@@ -36,13 +36,25 @@ public class Cell {
 				node = node.down;
 			}
 		}
+		initializeNeighbours();
 		initializeNeighboursArrayList();
 	}
 
 	// custom methods
+	
+	// TODO: finish adding all the initializing of neighbour cells
+	// initialize Neighbour cells
+	private void initializeNeighbours() {
+		for (Cell cell : Animation.cells) {
+			if (cell.getX() == this.getX() - 1 && cell.getY() == this.getY()) // LEFT
+				this.left = cell;
+			else if(cell.getX() == this.getX() + 1 && cell.getY() == this.getY()) // RIGHT
+				this.right = cell;
+		}
+	}
 
 	// initialize NeighboursArray, called in constructor
-	public void initializeNeighboursArrayList() {
+	private void initializeNeighboursArrayList() {
 		this.neighbourCells.add(up);
 		this.neighbourCells.add(down);
 		this.neighbourCells.add(left);

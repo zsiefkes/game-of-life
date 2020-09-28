@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 
 public class Animation extends Application {
 
-	public LinkedList<Cell> cells = new LinkedList<>();
+	public static LinkedList<Cell> cells = new LinkedList<>();
 	public ArrayList<Rectangle> rectangles = new ArrayList<>();
 	// size
 	public static final int SIZE = 5;
