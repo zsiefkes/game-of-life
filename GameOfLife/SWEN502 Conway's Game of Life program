@@ -4,30 +4,20 @@
  * @since       2020-09-28
 <p>
 
-Two classes:
+<b> Three classes: <b>
 Cell:
     fields:
         boolean alive
-        int row, column
-        Color colour
-        Cell left, right, up, down, upLeft, upRight, downLeft, downRight
+        int x, y
         
     constructor:
         public Cell(int row, int column){
             this.row = row;
             this.col = col;
             this.alive = false;
-            this.colour = color.White;
-            // initialize surrounding cells
-            }
+       	}
         
     methods:
-        updateNeighbours
-            - get every neighbour's cell and update them
-            
-        draw
-            - draw rectangle of designated size, colour, at x and y coordinates in the javafx canvas
-        
         isAlive
             - return this.alive == true;
         
@@ -39,20 +29,44 @@ Cell:
         
         makeDead
             this.alive = false;
+            
+World:
+	fields:
+		int rows, cols
+		LinkedList<Cell> cells
+		
+	constructor:
+		public World(int rows, int cols) {
+			this.rows = rows;
+			this.cols = cols;
+			// initialize cells list
+			for (int i = 0; i < rows; i++) {
+				for (int j = 0; j < cols; j++) {
+					this.cells.add(new Cell(i, j));
+				}
+			}
+			drawWorld();
+			
+	methods:
+		drawWorld():
+			draw the world to console for debugging
+	
+		update():
+			loop through list 
+		
+		int returnLiveNeighbours(Cell cell):
+			check cells neighbouring cells for returning a score;
+		
+		increaseSize():
+			expandSize if Cell goes off board.
+		
+		getters 'n setters
+
 Main:
-    fields:
-        LinkedList<Cell> cells
-    
     methods:
-        drawCells
-            - draw the cells in the linked list
-        
         drawGrid
             - draw the grid lines
             
-        update
-            - loop through cells in linked list of cells and update status to alive or dead based on game rules
-        
         runGame
             - clear screen, then calls update, drawGrid, drawCells every x amount of frames
         
@@ -72,3 +86,19 @@ Main:
                         
         public static void main(String[] args)
             - Application.launch(args)
+            
+            
+getRectangles method:
+// return rectangles
+	// FIXME: edit getCells to return a group
+	public void getRectangles() {
+		for (Cell cell : cells) {
+			Rectangle rect = new Rectangle();
+			rect.setX(cell.getX() * SIZE + (WINDOW_WIDTH / 2));
+			rect.setY(cell.getY() * SIZE + (WINDOW_HEIGHT / 2));
+			rect.setHeight(SIZE);
+			rect.setWidth(SIZE);
+			rectangles.add(rect);
+		}
+	}
+	
