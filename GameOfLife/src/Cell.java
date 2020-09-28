@@ -1,3 +1,4 @@
+import javafx.scene.paint.Color;
 
 public class Cell {
 	Cell left;
@@ -11,6 +12,7 @@ public class Cell {
 	int x;
 	int y;
 	Boolean alive;
+	Color colour;
 
 	public Cell() {
 		x = 0;
