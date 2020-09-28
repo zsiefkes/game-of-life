@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 import javafx.scene.paint.Color;
 
 public class Cell {
@@ -12,7 +14,8 @@ public class Cell {
 	int x;
 	int y;
 	Boolean alive;
-	Color colour; // new color
+	Color colour; // new colour
+	ArrayList<Cell> neighbourCells;
 
 	public Cell() {
 		x = 0;
