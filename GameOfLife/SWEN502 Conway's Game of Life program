@@ -10,7 +10,7 @@ Cell:
         boolean alive
         int row, column
         Color colour
-        Cell left, right, up, down
+        Cell left, right, up, down, upLeft, upRight, downLeft, downRight
         
     constructor:
         public Cell(int row, int column){
