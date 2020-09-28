@@ -19,10 +19,10 @@ public class World {
 		for (Cell cell : this.cells) {
 
 			int cellNumber = returnLiveNeighbours(cell);
-			// rule #1: if cell is alive and has 2 or 3 surrounding neighbours
+			// rule #1: if cell is alive and has 2 or 3 surrounding live neighbours
 			if (cell.isAlive() && (cellNumber == 3 || cellNumber == 2))
 				cell.setAlive();
-			// rule #2: if cell is dead but has three surrounding neighbours
+			// rule #2: if cell is dead but has 3 surrounding live neighbours
 			else if (cell.isDead() && cellNumber == 3)
 				cell.setAlive();
 			// rule #3
