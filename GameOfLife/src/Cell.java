@@ -12,7 +12,7 @@ public class Cell {
 	int x;
 	int y;
 	Boolean alive;
-	Color colour;
+	Color colour; // new color
 
 	public Cell() {
 		x = 0;
