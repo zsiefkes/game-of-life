@@ -2,10 +2,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 public class Animation extends Application {
 
@@ -29,7 +34,20 @@ public class Animation extends Application {
 	@Override
 	public void start(Stage arg0) throws Exception {
 		// TODO:
-		
+		World world = new World(WINDOW_WIDTH / SIZE, WINDOW_HEIGHT / SIZE);
+		Group root = new Group();
+		KeyFrame frame = new KeyFrame(Duration.millis(200), new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+
+			}
+
+		});
+
+		Timeline t = new Timeline(frame);
+		t.setCycleCount(javafx.animation.Animation.INDEFINITE);
 		// create keyframe and timeline,
 		// call runGame() every x frames
 	}
