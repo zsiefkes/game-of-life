@@ -1,0 +1,74 @@
+<p>
+ * @authors     Matt Bunch, Zach Di, Walter Lowe Mary-Ellen Miranda,
+ * @version     1.0
+ * @since       2020-09-28
+<p>
+
+Two classes:
+Cell:
+    fields:
+        boolean alive
+        int row, column
+        Color colour
+        Cell left, right, up, down
+        
+    constructor:
+        public Cell(int row, int column){
+            this.row = row;
+            this.col = col;
+            this.alive = false;
+            this.colour = color.White;
+            // initialize surrounding cells
+            }
+        
+    methods:
+        updateNeighbours
+            - get every neighbour's cell and update them
+            
+        draw
+            - draw rectangle of designated size, colour, at x and y coordinates in the javafx canvas
+        
+        isAlive
+            - return this.alive == true;
+        
+        isDead
+            - return this.alive == false;
+        
+        makeAlive
+            this.alive = true;
+        
+        makeDead
+            this.alive = false;
+Main:
+    fields:
+        LinkedList<Cell> cells
+    
+    methods:
+        drawCells
+            - draw the cells in the linked list
+        
+        drawGrid
+            - draw the grid lines
+            
+        update
+            - loop through cells in linked list of cells and update status to alive or dead based on game rules
+        
+        runGame
+            - clear screen, then calls update, drawGrid, drawCells every x amount of frames
+        
+        stopGame
+            - pauses game
+            
+        reset
+            - resets the game to initial positions
+            
+        start(stage primaryStage) throws Exception
+            - create canvas
+            - contains keyframe and timeline
+                - handle {
+                    runGame
+                    }    
+                - keyboard input to pause and reset game
+                        
+        public static void main(String[] args)
+            - Application.launch(args)
