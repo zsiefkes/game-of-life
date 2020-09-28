@@ -4,6 +4,10 @@ public class Cell {
 	Cell right;
 	Cell up;
 	Cell down;
+	Cell upLeft;
+	Cell upRight;
+	Cell downLeft;
+	Cell downRight;
 	int x;
 	int y;
 	Boolean alive;
