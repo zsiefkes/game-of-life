@@ -3,10 +3,6 @@ import java.util.ArrayList;
 public class World {
 
 	private int rows, cols;
-	// option 1: Cell object
-	private ArrayList<Cell> cells;
-	// option 2: 2D arraylist
-	private boolean[][] values;
 	private ArrayList<ArrayList<Boolean>> valuesList;
 
 	public World(int rows, int cols) {
@@ -15,27 +11,27 @@ public class World {
 		// initialize values list
 		for (int i = 0; i < rows; i++) {
 			for (int j = 0; j < cols; j++) {
-				values[i][j] = false;
 				valuesList.get(j).add(i, false);
 			}
 		}
 	}
 
 	// custom classes
-	// TODO: update for array of boolean values
 	public void update() {
-
-		for (Cell cell : this.cells) {
-			int cellNumber = returnLiveNeighbours(cell);
-			// rule #1: if cell is alive and has 2 or 3 surrounding live neighbours
-			if (cell.isAlive() && (cellNumber == 3 || cellNumber == 2))
-				cell.setAlive();
-			// rule #2: if cell is dead but has 3 surrounding live neighbours
-			else if (cell.isDead() && cellNumber == 3)
-				cell.setAlive();
-			// rule #3
-			else
-				cell.setDead();
+		for (int i = 0; i < valuesList.size(); i++) {
+			for (int j = 0; j < valuesList.get(i).size(); j++) {
+				int cellNumber = returnLiveNeighbours(i, j);
+				boolean value = valuesList.get(i).get(i);
+				// rule #1: if cell is alive and has 2 or 3 surrounding live neighbours
+				if (value = true && (cellNumber == 3 || cellNumber == 2))
+					value = true;
+				// rule #2: if cell is dead but has 3 surrounding live neighbours
+				else if (value = false && cellNumber == 3)
+					value = true;
+				// rule #3: if cell does not fufill the conditions for survival
+				else
+					value = false;
+			}
 		}
 	}
 
@@ -77,12 +73,12 @@ public class World {
 		this.cols = cols;
 	}
 
-	public ArrayList<Cell> getCells() {
-		return cells;
+	public ArrayList<ArrayList<Boolean>> getValuesList() {
+		return valuesList;
 	}
 
-	public void setCells(ArrayList<Cell> cells) {
-		this.cells = cells;
+	public void setValuesList(ArrayList<ArrayList<Boolean>> valuesList) {
+		this.valuesList = valuesList;
 	}
 
 }
