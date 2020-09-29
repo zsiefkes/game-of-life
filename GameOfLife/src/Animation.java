@@ -46,6 +46,7 @@ public class Animation extends Application {
 			Rectangle rect = new Rectangle(x, y, SIZE, SIZE);
 			rect.setFill(Color.color(Math.random(), Math.random(), Math.random())); // random color, change this if
 																					// necessary
+			group.getChildren().add(rect);
 		}
 
 		// draw the grid

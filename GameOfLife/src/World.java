@@ -20,8 +20,21 @@ public class World {
 	}
 
 	// TODO: expand world to accommodate for infinite directions:
-	public void expandWorld() {
-
+	public void expandWorld(String direction) {
+		switch (direction.toLowerCase()) {
+		case "north":
+			// insert arraylist full of false values at index 0 of valuesList
+			break;
+		case "south":
+			// insert arraylist at end of valuesList
+			break;
+		case "east":
+			// insert new false value to the end of every arraylist in valuesList
+			break;
+		case "west":
+			// insert new false value to the beginning of every arraylist in valuesList
+			break;
+		}
 	}
 
 	// TODO: read seed for loading different starting positions of game
