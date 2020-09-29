@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-
 public class World {
 
 	private int rows, cols;
@@ -40,6 +39,7 @@ public class World {
 	}
 
 	// TODO: edit to be place of boolean values
+	// take coordinates x, y and return number of live neighboring cells
 	public int returnLiveNeighbours(int x, int y) {
 		int counter = 0;
 		// check north
@@ -50,6 +50,37 @@ public class World {
 		// check northwest
 		// check southeast
 		// check southwest
+		if (valuesList.get(x).get(y - 1)) {
+			counter++;
+		}
+		// check south
+		if (valuesList.get(x).get(y + 1)) {
+			counter++;
+		}
+		// check east
+		if (valuesList.get(x + 1).get(y)) {
+			counter++;
+		}
+		// check west
+		if (valuesList.get(x - 1).get(y)) {
+			counter++;
+		}
+		// check northeast
+		if (valuesList.get(x + 1).get(y - 1)) {
+			counter++;
+		}
+		// check northwest
+		if (valuesList.get(x - 1).get(y - 1)) {
+			counter++;
+		}
+		// check southeast
+		if (valuesList.get(x + 1).get(y + 1)) {
+			counter++;
+		}
+		// check southwest
+		if (valuesList.get(x - 1).get(y + 1)) {
+			counter++;
+		}
 
 		return counter;
 	}
