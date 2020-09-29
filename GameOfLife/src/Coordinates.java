@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 
 public class Coordinates {
 	int x, y;
