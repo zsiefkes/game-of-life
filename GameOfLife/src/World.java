@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class World {
 
@@ -27,22 +28,37 @@ public class World {
 		switch (direction.toLowerCase()) {
 		case "north":
 			// insert arraylist full of false values at index 0 of valuesList
+			valuesList.add(0, addNewList());
 			break;
 		case "south":
 			// insert arraylist at end of valuesList
+			valuesList.add(addNewList());
 			break;
 		case "east":
 			// insert new false value to the end of every arraylist in valuesList
+			for (ArrayList<Boolean> list : valuesList) {
+				list.add(false);
+			}
 			break;
 		case "west":
 			// insert new false value to the beginning of every arraylist in valuesList
+			for (ArrayList<Boolean> list : valuesList) {
+				list.add(0, false);
+			}
 			break;
 		}
 	}
 
+	// helper method for expandWorld, for expanding north and south borders
+	private ArrayList<Boolean> addNewList() {
+		ArrayList<Boolean> newList = new ArrayList<>(this.cols);
+		Collections.fill(newList, false);
+		return newList;
+	}
+
 	// TODO: read seed for loading different starting positions of game
 	public void readSeed() {
-		
+
 	}
 
 	public void initializeCoordinatesList() {
@@ -52,7 +68,6 @@ public class World {
 				if (valuesList.get(i).get(j) == true)
 					// create new Coordinates object of x and y position of the true value
 					coordinatesList.add(new Coordinates(i, j));
-
 			}
 		}
 	}
@@ -79,12 +94,16 @@ public class World {
 		}
 		valuesList = temp;
 
-		// TODO: clear existing Coordinates arraylist and initialize new ones
+		// clear existing Coordinates arraylist and initialize new ones
 		this.coordinatesList.clear();
 		initializeCoordinatesList();
 	}
 
 	// take coordinates x, y and return number of live neighboring cells
+
+	// TODO: include new expandWorld methods to expand the world borders if needed
+	// alternative: new method for checking borders independent of
+	// returnLiveNeighbours
 	public int returnLiveNeighbours(int x, int y) {
 		int counter = 0;
 		if (y > 0) {
