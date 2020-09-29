@@ -1,7 +1,3 @@
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
-
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -24,10 +20,7 @@ public class Animation extends Application {
 	// screen height
 	public static final int WINDOW_HEIGHT = 400;
 
-	public void drawGrid(World world, Group group) {
-		// TODO: draw grid
-		int rowNum = world.getRows();
-
+	private void drawGrid(Group group) {
 		for (int i = 0; i < WINDOW_HEIGHT; i += SIZE) {
 			Line line1 = new Line(0, i, WINDOW_WIDTH, i);
 			line1.setStroke(Color.BLACK);
@@ -40,24 +33,42 @@ public class Animation extends Application {
 		}
 	}
 
-	// updates game and then draws cell
-	public void runGame(World world) {
+	// TODO: draw rectangles based on where the coordinates are
+	private void drawWorld(World world, Group group) {
+		// draw the rectangles
+		for (int i = 0; i < world.getCoordinatesList().size(); i++) {
+			int x = world.getCoordinatesList().get(i).getX();
+			int y = world.getCoordinatesList().get(i).getY();
+			Rectangle rect = new Rectangle(x, y, SIZE, SIZE);
+			rect.setFill(Color.color(Math.random(), Math.random(), Math.random())); // random color, change this if necessary
+		}
+
+		// draw the grid
+		drawGrid(group);
+
+	}
+
+	// ##### TODO: cycle of events every frame: #####
+	// 1. clear group
+	// 2. update world
+	// 3. draw world
+	public void runGame(World world, Group group) {
+		group.getChildren().clear();
 		world.update();
-//		drawWorld();
+		drawWorld(world, group);
 	}
 
 	@Override
-	public void start(Stage arg0) throws Exception {
+	public void start(Stage window) throws Exception {
 		// TODO:
-		World world = new World((int)(WINDOW_WIDTH / SIZE), (int)(WINDOW_HEIGHT / SIZE));
+		World world = new World((int) (WINDOW_WIDTH / SIZE), (int) (WINDOW_HEIGHT / SIZE));
 		Group root = new Group();
-		drawGrid(world, root);
+		drawWorld(world, root);
 		KeyFrame frame = new KeyFrame(Duration.millis(200), new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent arg0) {
-				// TODO Auto-generated method stub
-
+				runGame(world, root);
 			}
 
 		});
@@ -67,8 +78,8 @@ public class Animation extends Application {
 		// create keyframe and timeline,
 		// call runGame() every x frames
 		Scene scene = new Scene(root, WINDOW_WIDTH, WINDOW_HEIGHT);
-		arg0.setScene(scene);
-		arg0.show();
+		window.setScene(scene);
+		window.show();
 
 	}
 

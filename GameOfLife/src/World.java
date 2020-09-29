@@ -1,8 +1,10 @@
 import java.util.ArrayList;
+
 public class World {
 
 	private int rows, cols;
 	private ArrayList<ArrayList<Boolean>> valuesList = new ArrayList<ArrayList<Boolean>>();
+	private ArrayList<Coordinates> coordinatesList = new ArrayList<>();
 
 	public World(int rows, int cols) {
 		this.rows = rows;
@@ -12,6 +14,23 @@ public class World {
 			valuesList.add(new ArrayList<Boolean>());
 			for (int j = 0; j < cols; j++) {
 				valuesList.get(i).add(j, false);
+			}
+		}
+		initializeCoordinatesList();
+	}
+
+	// TODO: expand world to accommodate for infinite directions:
+	public void expandWorld() {
+
+	}
+
+	public void initializeCoordinatesList() {
+		// loop through valuesList and find true values
+		for (int i = 0; i < valuesList.get(i).size(); i++) {
+			for (int j = 0; j < valuesList.get(j).size(); j++) {
+				if (valuesList.get(i).get(j) == true)
+					// create new Coordinates object of x and y position of the true value
+					new Coordinates(i, j, this);
 			}
 		}
 	}
@@ -36,20 +55,15 @@ public class World {
 			}
 		}
 		valuesList = temp;
+
+		// TODO: clear existing Coordinates arraylist and initialize new ones
+		this.coordinatesList.clear();
+		initializeCoordinatesList();
 	}
 
-	// TODO: edit to be place of boolean values
 	// take coordinates x, y and return number of live neighboring cells
 	public int returnLiveNeighbours(int x, int y) {
 		int counter = 0;
-		// check north
-		// check south
-		// check east
-		// check west
-		// check northeast
-		// check northwest
-		// check southeast
-		// check southwest
 		if (valuesList.get(x).get(y - 1)) {
 			counter++;
 		}
@@ -109,6 +123,14 @@ public class World {
 
 	public void setValuesList(ArrayList<ArrayList<Boolean>> valuesList) {
 		this.valuesList = valuesList;
+	}
+
+	public ArrayList<Coordinates> getCoordinatesList() {
+		return coordinatesList;
+	}
+
+	public void setCoordinatesList(ArrayList<Coordinates> coordinatesList) {
+		this.coordinatesList = coordinatesList;
 	}
 
 }
