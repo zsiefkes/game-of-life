@@ -26,7 +26,7 @@ public class World {
 
 	// TODO: read seed for loading different starting positions of game
 	public void readSeed() {
-
+		
 	}
 
 	public void initializeCoordinatesList() {
@@ -35,7 +35,8 @@ public class World {
 			for (int j = 0; j < valuesList.get(i).size(); j++) {
 				if (valuesList.get(i).get(j) == true)
 					// create new Coordinates object of x and y position of the true value
-					new Coordinates(i, j, this);
+					coordinatesList.add(new Coordinates(i, j));
+
 			}
 		}
 	}
