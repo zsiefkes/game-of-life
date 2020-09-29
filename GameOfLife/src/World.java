@@ -2,7 +2,7 @@ import java.util.ArrayList;
 public class World {
 
 	private int rows, cols;
-	private ArrayList<ArrayList<Boolean>> valuesList;
+	private ArrayList<ArrayList<Boolean>> valuesList = new ArrayList<ArrayList<Boolean>>();
 
 	public World(int rows, int cols) {
 		this.rows = rows;
