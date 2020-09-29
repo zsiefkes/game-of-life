@@ -1,23 +1,31 @@
-import java.util.LinkedList;
+import java.util.ArrayList;
 
 public class World {
 
 	private int rows, cols;
-	private LinkedList<Cell> cells;
+	// option 1: Cell object
+	private ArrayList<Cell> cells;
+	// option 2: 2D arraylist
+	private boolean[][] values;
+	private ArrayList<ArrayList<Boolean>> valuesList;
 
 	public World(int rows, int cols) {
 		this.rows = rows;
 		this.cols = cols;
-		// initialize cells list
-		for (int i = 0; i < rows; i++)
-			for (int j = 0; j < cols; j++)
-				new Cell(i, j, this);
+		// initialize values list
+		for (int i = 0; i < rows; i++) {
+			for (int j = 0; j < cols; j++) {
+				values[i][j] = false;
+				valuesList.get(j).add(i, false);
+			}
+		}
 	}
 
 	// custom classes
+	// TODO: update for array of boolean values
 	public void update() {
-		for (Cell cell : this.cells) {
 
+		for (Cell cell : this.cells) {
 			int cellNumber = returnLiveNeighbours(cell);
 			// rule #1: if cell is alive and has 2 or 3 surrounding live neighbours
 			if (cell.isAlive() && (cellNumber == 3 || cellNumber == 2))
@@ -27,10 +35,11 @@ public class World {
 				cell.setAlive();
 			// rule #3
 			else
-				cell.setDead(); 
+				cell.setDead();
 		}
 	}
 
+	// TODO: edit to be place of boolean values
 	public int returnLiveNeighbours(Cell inputCell) {
 		int counter = 0;
 		// check cell's neighbouring cells and return
@@ -46,7 +55,7 @@ public class World {
 			// check southeast
 			// check southwest
 		}
-		
+
 		return counter;
 	}
 
@@ -68,11 +77,11 @@ public class World {
 		this.cols = cols;
 	}
 
-	public LinkedList<Cell> getCells() {
+	public ArrayList<Cell> getCells() {
 		return cells;
 	}
 
-	public void setCells(LinkedList<Cell> cells) {
+	public void setCells(ArrayList<Cell> cells) {
 		this.cells = cells;
 	}
 
