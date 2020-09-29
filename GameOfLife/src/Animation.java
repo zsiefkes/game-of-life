@@ -43,7 +43,7 @@ public class Animation extends Application {
 		for (int i = 0; i < world.getCoordinatesList().size(); i++) {
 			int x = world.getCoordinatesList().get(i).getX();
 			int y = world.getCoordinatesList().get(i).getY();
-			Rectangle rect = new Rectangle(x, y, SIZE, SIZE);
+			Rectangle rect = new Rectangle(x*SIZE, y*SIZE, SIZE, SIZE);
 			rect.setFill(Color.color(Math.random(), Math.random(), Math.random())); // random color, change this if
 																					// necessary
 			group.getChildren().add(rect);

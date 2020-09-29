@@ -20,6 +20,7 @@ public class World {
 			}
 		}
 		initializeCoordinatesList();
+		readSeed();
 	}
 
 	// TODO: expand world to accommodate for infinite directions:
@@ -42,6 +43,11 @@ public class World {
 
 	// TODO: read seed for loading different starting positions of game
 	public void readSeed() {
+		valuesList.get(1).set(0, true);
+		valuesList.get(2).set(1, true);
+		valuesList.get(0).set(2, true);
+		valuesList.get(1).set(2, true);
+		valuesList.get(2).set(2, true);
 		
 	}
 
