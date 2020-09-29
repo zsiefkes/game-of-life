@@ -1,34 +1,36 @@
 import java.util.ArrayList;
-import java.util.LinkedList;
-
 public class World {
 
 	private int rows, cols;
-	private ArrayList<ArrayList<Boolean>> valuesList = new ArrayList<ArrayList<Boolean>>();
+	private ArrayList<ArrayList<Boolean>> valuesList;
 
 	public World(int rows, int cols) {
 		this.rows = rows;
 		this.cols = cols;
-		// initialize cells list
-		for (int i = 0; i < rows; i++)
-			for (int j = 0; j < cols; j++)
-				new Cell(i, j, this);
+		// initialize values list
+		for (int i = 0; i < rows; i++) {
+			for (int j = 0; j < cols; j++) {
+				valuesList.get(j).add(i, false);
+			}
+		}
 	}
 
 	// custom classes
 	public void update() {
-		for (Cell cell : this.cells) {
-
-			int cellNumber = returnLiveNeighbours(cell);
-			// rule #1: if cell is alive and has 2 or 3 surrounding live neighbours
-			if (cell.isAlive() && (cellNumber == 3 || cellNumber == 2))
-				cell.setAlive();
-			// rule #2: if cell is dead but has 3 surrounding live neighbours
-			else if (cell.isDead() && cellNumber == 3)
-				cell.setAlive();
-			// rule #3
-			else
-				cell.setDead(); 
+		for (int i = 0; i < valuesList.size(); i++) {
+			for (int j = 0; j < valuesList.get(i).size(); j++) {
+				int cellNumber = returnLiveNeighbours(i, j);
+				boolean value = valuesList.get(i).get(i);
+				// rule #1: if cell is alive and has 2 or 3 surrounding live neighbours
+				if (value = true && (cellNumber == 3 || cellNumber == 2))
+					value = true;
+				// rule #2: if cell is dead but has 3 surrounding live neighbours
+				else if (value = false && cellNumber == 3)
+					value = true;
+				// rule #3: if cell does not fulfill the conditions for survival
+				else
+					value = false;
+			}
 		}
 	}
 
@@ -67,7 +69,7 @@ public class World {
 		if (valuesList.get(x - 1).get(y + 1)) {
 			counter++;
 		}
-		
+
 		return counter;
 	}
 
@@ -89,12 +91,12 @@ public class World {
 		this.cols = cols;
 	}
 
-	public LinkedList<Cell> getCells() {
-		return cells;
+	public ArrayList<ArrayList<Boolean>> getValuesList() {
+		return valuesList;
 	}
 
-	public void setCells(LinkedList<Cell> cells) {
-		this.cells = cells;
+	public void setValuesList(ArrayList<ArrayList<Boolean>> valuesList) {
+		this.valuesList = valuesList;
 	}
 
 }
