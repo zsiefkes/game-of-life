@@ -67,7 +67,7 @@ public class Animation extends Application {
 	@Override
 	public void start(Stage window) throws Exception {
 		// TODO:
-		World world = new World((int) (WINDOW_WIDTH / SIZE), (int) (WINDOW_HEIGHT / SIZE));
+		World world = new World((int) (WINDOW_HEIGHT / SIZE), (int) (WINDOW_WIDTH / SIZE));
 		Group root = new Group();
 		drawWorld(world, root);
 		KeyFrame frame = new KeyFrame(Duration.millis(200), new EventHandler<ActionEvent>() {

@@ -3,12 +3,15 @@ import java.util.ArrayList;
 public class World {
 
 	private int rows, cols;
+	private int initRows, initCols;
 	private ArrayList<ArrayList<Boolean>> valuesList = new ArrayList<ArrayList<Boolean>>();
 	private ArrayList<Coordinates> coordinatesList = new ArrayList<>();
 
 	public World(int rows, int cols) {
 		this.rows = rows;
 		this.cols = cols;
+		this.initRows = rows;
+		this.initCols = cols;
 		// initialize values list
 		for (int i = 0; i < cols; i++) {
 			valuesList.add(new ArrayList<Boolean>());
