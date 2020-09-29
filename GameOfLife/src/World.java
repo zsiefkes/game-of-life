@@ -17,7 +17,7 @@ public class World {
 		for (int i = 0; i < cols; i++) {
 			valuesList.add(new ArrayList<Boolean>());
 			for (int j = 0; j < rows; j++) {
-				valuesList.get(i).add(j, false);
+				valuesList.get(i).add(false);
 			}
 		}
 		initializeCoordinatesList();
@@ -25,27 +25,31 @@ public class World {
 	}
 
 	// TODO: expand world to accommodate for infinite directions:
-	public void expandWorld(String direction) {
+	public void expandWorld(String direction, ArrayList<ArrayList<Boolean>> cellList) {
 		switch (direction.toLowerCase()) {
 		case "north":
 			// insert arraylist full of false values at index 0 of valuesList
-			valuesList.add(0, addNewList());
+			for (ArrayList<Boolean> list : cellList) {
+				list.add(0, false);
+			}
+			rows++;
 			break;
 		case "south":
 			// insert arraylist at end of valuesList
-			valuesList.add(addNewList());
+			for (ArrayList<Boolean> list : cellList) {
+				list.add(false);
+			}
+			rows++;
 			break;
 		case "east":
 			// insert new false value to the end of every arraylist in valuesList
-			for (ArrayList<Boolean> list : valuesList) {
-				list.add(false);
-			}
+			cellList.add(addNewList());
+			cols++;
 			break;
 		case "west":
 			// insert new false value to the beginning of every arraylist in valuesList
-			for (ArrayList<Boolean> list : valuesList) {
-				list.add(0, false);
-			}
+			cellList.add(0, addNewList());
+			cols++;
 			break;
 		}
 	}
@@ -64,7 +68,7 @@ public class World {
 		valuesList.get(0).set(2, true);
 		valuesList.get(1).set(2, true);
 		valuesList.get(2).set(2, true);
-		
+
 	}
 
 	public void initializeCoordinatesList() {
@@ -81,9 +85,9 @@ public class World {
 	// custom classes
 	public void update() {
 		ArrayList<ArrayList<Boolean>> temp = new ArrayList<ArrayList<Boolean>>();
-		for (int i = 0; i < valuesList.size(); i++) {
+		for (int i = 0; i < cols; i++) {
 			temp.add(new ArrayList<Boolean>());
-			for (int j = 0; j < valuesList.get(i).size(); j++) {
+			for (int j = 0; j < rows; j++) {
 				temp.get(i).add(false);
 				int cellNumber = returnLiveNeighbours(i, j);
 				boolean value = valuesList.get(i).get(j);
@@ -98,11 +102,47 @@ public class World {
 					temp.get(i).set(j, false);
 			}
 		}
+		checkExpansion(temp);
 		valuesList = temp;
 
 		// clear existing Coordinates arraylist and initialize new ones
 		this.coordinatesList.clear();
 		initializeCoordinatesList();
+	}
+
+	public void checkExpansion(ArrayList<ArrayList<Boolean>> cellList) {
+		for (int x = 0; x < cols - 2; x++) {
+			if (cellList.get(x).get(0)) {
+				if (cellList.get(x + 1).get(0) && cellList.get(x + 2).get(0)) {
+					expandWorld("north", cellList);
+					break;
+				}
+			}
+		}
+		for (int x = 0; x < cols - 2; x++) {
+			if (cellList.get(x).get(rows - 1)) {
+				if (cellList.get(x + 1).get(rows - 1) && cellList.get(x + 2).get(rows - 1)) {
+					expandWorld("south", cellList);
+					break;
+				}
+			}
+		}
+		for (int y = 0; y < rows - 2; y++) {
+			if (cellList.get(0).get(y)) {
+				if (cellList.get(0).get(y + 1) && cellList.get(0).get(y + 2)) {
+					expandWorld("west", cellList);
+					break;
+				}
+			}
+		}
+		for (int y = 0; y < rows - 2; y++) {
+			if (cellList.get(valuesList.size() - 1).get(y)) {
+				if (cellList.get(cols - 1).get(y + 1) && cellList.get(cols - 1).get(y + 2)) {
+					expandWorld("east", cellList);
+					break;
+				}
+			}
+		}
 	}
 
 	// take coordinates x, y and return number of live neighboring cells
