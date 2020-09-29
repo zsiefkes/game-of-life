@@ -10,9 +10,9 @@ public class World {
 		this.rows = rows;
 		this.cols = cols;
 		// initialize values list
-		for (int i = 0; i < rows; i++) {
+		for (int i = 0; i < cols; i++) {
 			valuesList.add(new ArrayList<Boolean>());
-			for (int j = 0; j < cols; j++) {
+			for (int j = 0; j < rows; j++) {
 				valuesList.get(i).add(j, false);
 			}
 		}
@@ -23,16 +23,16 @@ public class World {
 	public void expandWorld() {
 
 	}
-	
+
 	// TODO: read seed for loading different starting positions of game
 	public void readSeed() {
-		
+
 	}
 
 	public void initializeCoordinatesList() {
 		// loop through valuesList and find true values
-		for (int i = 0; i < valuesList.get(i).size(); i++) {
-			for (int j = 0; j < valuesList.get(j).size(); j++) {
+		for (int i = 0; i < valuesList.size(); i++) {
+			for (int j = 0; j < valuesList.get(i).size(); j++) {
 				if (valuesList.get(i).get(j) == true)
 					// create new Coordinates object of x and y position of the true value
 					new Coordinates(i, j, this);
@@ -46,6 +46,7 @@ public class World {
 		for (int i = 0; i < valuesList.size(); i++) {
 			temp.add(new ArrayList<Boolean>());
 			for (int j = 0; j < valuesList.get(i).size(); j++) {
+				temp.get(i).add(false);
 				int cellNumber = returnLiveNeighbours(i, j);
 				boolean value = valuesList.get(i).get(j);
 				// rule #1: if cell is alive and has 2 or 3 surrounding live neighbours
@@ -69,36 +70,53 @@ public class World {
 	// take coordinates x, y and return number of live neighboring cells
 	public int returnLiveNeighbours(int x, int y) {
 		int counter = 0;
-		if (valuesList.get(x).get(y - 1)) {
-			counter++;
+		if (y > 0) {
+			// check north
+			if (valuesList.get(x).get(y - 1)) {
+				counter++;
+			}
+			if (x < cols - 1) {
+				// check northeast
+				if (valuesList.get(x + 1).get(y - 1)) {
+					counter++;
+				}
+			}
+			if (x > 0) {
+				// check northwest
+				if (valuesList.get(x - 1).get(y - 1)) {
+					counter++;
+				}
+			}
 		}
-		// check south
-		if (valuesList.get(x).get(y + 1)) {
-			counter++;
+		if (y < rows - 1) {
+			// check south
+			if (valuesList.get(x).get(y + 1)) {
+				counter++;
+			}
+			if (x < cols - 1) {
+				// check southeast
+				if (valuesList.get(x + 1).get(y + 1)) {
+					counter++;
+				}
+			}
+			if (x > 0) {
+				// check southwest
+				if (valuesList.get(x - 1).get(y + 1)) {
+					counter++;
+				}
+			}
 		}
-		// check east
-		if (valuesList.get(x + 1).get(y)) {
-			counter++;
+		if (x < cols - 1) {
+			// check east
+			if (valuesList.get(x + 1).get(y)) {
+				counter++;
+			}
 		}
-		// check west
-		if (valuesList.get(x - 1).get(y)) {
-			counter++;
-		}
-		// check northeast
-		if (valuesList.get(x + 1).get(y - 1)) {
-			counter++;
-		}
-		// check northwest
-		if (valuesList.get(x - 1).get(y - 1)) {
-			counter++;
-		}
-		// check southeast
-		if (valuesList.get(x + 1).get(y + 1)) {
-			counter++;
-		}
-		// check southwest
-		if (valuesList.get(x - 1).get(y + 1)) {
-			counter++;
+		if (x > 0) {
+			// check west
+			if (valuesList.get(x - 1).get(y)) {
+				counter++;
+			}
 		}
 
 		return counter;
