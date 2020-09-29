@@ -10,47 +10,46 @@ public class World {
 		this.cols = cols;
 		// initialize values list
 		for (int i = 0; i < rows; i++) {
+			valuesList.add(new ArrayList<Boolean>());
 			for (int j = 0; j < cols; j++) {
-				valuesList.get(j).add(i, false);
+				valuesList.get(i).add(j, false);
 			}
 		}
 	}
 
 	// custom classes
 	public void update() {
+		ArrayList<ArrayList<Boolean>> temp = new ArrayList<ArrayList<Boolean>>();
 		for (int i = 0; i < valuesList.size(); i++) {
+			temp.add(new ArrayList<Boolean>());
 			for (int j = 0; j < valuesList.get(i).size(); j++) {
 				int cellNumber = returnLiveNeighbours(i, j);
-				boolean value = valuesList.get(i).get(i);
+				boolean value = valuesList.get(i).get(j);
 				// rule #1: if cell is alive and has 2 or 3 surrounding live neighbours
 				if (value = true && (cellNumber == 3 || cellNumber == 2))
-					value = true;
+					temp.get(i).add(j, true);
 				// rule #2: if cell is dead but has 3 surrounding live neighbours
 				else if (value = false && cellNumber == 3)
-					value = true;
+					temp.get(i).add(j, true);
 				// rule #3: if cell does not fulfill the conditions for survival
 				else
-					value = false;
+					temp.get(i).add(j, false);
 			}
 		}
+		valuesList = temp;
 	}
 
 	// TODO: edit to be place of boolean values
-	public int returnLiveNeighbours(Cell inputCell) {
+	public int returnLiveNeighbours(int x, int y) {
 		int counter = 0;
-		// check cell's neighbouring cells and return
-		int x = inputCell.getX();
-		int y = inputCell.getY();
-		for (Cell cell : this.cells) {
-			// check north
-			// check south
-			// check east
-			// check west
-			// check northeast
-			// check northwest
-			// check southeast
-			// check southwest
-		}
+		// check north
+		// check south
+		// check east
+		// check west
+		// check northeast
+		// check northwest
+		// check southeast
+		// check southwest
 
 		return counter;
 	}
