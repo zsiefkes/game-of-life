@@ -5,6 +5,8 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
@@ -19,6 +21,8 @@ public class Animation extends Application {
 	public static final int WINDOW_WIDTH = 700;
 	// screen height
 	public static final int WINDOW_HEIGHT = 400;
+	// game animation is running boolean status
+	boolean gameOn;
 
 	private void drawGrid(Group group) {
 		for (int i = 0; i < WINDOW_HEIGHT; i += SIZE) {
@@ -40,7 +44,8 @@ public class Animation extends Application {
 			int x = world.getCoordinatesList().get(i).getX();
 			int y = world.getCoordinatesList().get(i).getY();
 			Rectangle rect = new Rectangle(x, y, SIZE, SIZE);
-			rect.setFill(Color.color(Math.random(), Math.random(), Math.random())); // random color, change this if necessary
+			rect.setFill(Color.color(Math.random(), Math.random(), Math.random())); // random color, change this if
+																					// necessary
 		}
 
 		// draw the grid
@@ -75,12 +80,30 @@ public class Animation extends Application {
 
 		Timeline t = new Timeline(frame);
 		t.setCycleCount(javafx.animation.Animation.INDEFINITE);
-		// create keyframe and timeline,
-		// call runGame() every x frames
+		gameOn = true;
+		t.play();
+
 		Scene scene = new Scene(root, WINDOW_WIDTH, WINDOW_HEIGHT);
+		// adding keyboard functionality
+		scene.addEventHandler(KeyEvent.KEY_PRESSED, (key) -> {
+			// pause game
+			if (key.getCode() == KeyCode.SPACE) { // space
+				if (gameOn) {
+					t.stop();
+					gameOn = false;
+				} else {
+					t.play();
+					gameOn = true;
+				}
+			// reset world
+			} else if (key.getCode() == KeyCode.R) {
+				
+			}
+		});
+
+		window.setResizable(false);
 		window.setScene(scene);
 		window.show();
-
 	}
 
 	public static void main(String[] args) {

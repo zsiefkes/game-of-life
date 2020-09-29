@@ -23,6 +23,11 @@ public class World {
 	public void expandWorld() {
 
 	}
+	
+	// TODO: read seed for loading different starting positions of game
+	public void readSeed() {
+		
+	}
 
 	public void initializeCoordinatesList() {
 		// loop through valuesList and find true values
