@@ -26,13 +26,13 @@ public class World {
 				boolean value = valuesList.get(i).get(j);
 				// rule #1: if cell is alive and has 2 or 3 surrounding live neighbours
 				if (value = true && (cellNumber == 3 || cellNumber == 2))
-					temp.get(i).add(j, true);
+					temp.get(i).set(j, true);
 				// rule #2: if cell is dead but has 3 surrounding live neighbours
 				else if (value = false && cellNumber == 3)
-					temp.get(i).add(j, true);
+					temp.get(i).set(j, true);
 				// rule #3: if cell does not fulfill the conditions for survival
 				else
-					temp.get(i).add(j, false);
+					temp.get(i).set(j, false);
 			}
 		}
 		valuesList = temp;

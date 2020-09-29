@@ -8,6 +8,8 @@ import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -21,14 +23,23 @@ public class Animation extends Application {
 	// screen height
 	public static final int WINDOW_HEIGHT = 300;
 
-	public void drawGrid() {
+	public void drawGrid(World world, Group group) {
 		// TODO: draw grid
+		int rowNum = world.getRows();
+
+		for (int i = 0; i < rowNum; i += SIZE) {
+			Line line1 = new Line(i, 0, i, rowNum);
+			line1.setStroke(Color.BLACK);
+			Line line2 = new Line(0, i, rowNum, i);
+			line2.setStroke(Color.BLACK);
+			group.getChildren().addAll(line1, line2);
+		}
 	}
 
 	// updates game and then draws cell
-	public void runGame() {
-//		world.update();
-//		world.drawGame();
+	public void runGame(World world) {
+		world.update();
+//		drawWorld();
 	}
 
 	@Override
@@ -41,7 +52,7 @@ public class Animation extends Application {
 			@Override
 			public void handle(ActionEvent arg0) {
 				// TODO Auto-generated method stub
-
+				
 			}
 
 		});
@@ -57,4 +68,3 @@ public class Animation extends Application {
 	}
 
 }
- 
