@@ -1,9 +1,10 @@
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class World {
 
 	private int rows, cols;
-	private LinkedList<Cell> cells;
+	private ArrayList<ArrayList<Boolean>> valuesList = new ArrayList<ArrayList<Boolean>>();
 
 	public World(int rows, int cols) {
 		this.rows = rows;
@@ -31,20 +32,40 @@ public class World {
 		}
 	}
 
-	public int returnLiveNeighbours(Cell inputCell) {
+	// take coordinates x, y and return number of live neighboring cells
+	public int returnLiveNeighbours(int x, int y) {
 		int counter = 0;
-		// check cell's neighbouring cells and return
-		int x = inputCell.getX();
-		int y = inputCell.getY();
-		for (Cell cell : this.cells) {
-			// check north
-			// check south
-			// check east
-			// check west
-			// check northeast
-			// check northwest
-			// check southeast
-			// check southwest
+		// check north
+		if (valuesList.get(x).get(y - 1)) {
+			counter++;
+		}
+		// check south
+		if (valuesList.get(x).get(y + 1)) {
+			counter++;
+		}
+		// check east
+		if (valuesList.get(x + 1).get(y)) {
+			counter++;
+		}
+		// check west
+		if (valuesList.get(x - 1).get(y)) {
+			counter++;
+		}
+		// check northeast
+		if (valuesList.get(x + 1).get(y - 1)) {
+			counter++;
+		}
+		// check northwest
+		if (valuesList.get(x - 1).get(y - 1)) {
+			counter++;
+		}
+		// check southeast
+		if (valuesList.get(x + 1).get(y + 1)) {
+			counter++;
+		}
+		// check southwest
+		if (valuesList.get(x - 1).get(y + 1)) {
+			counter++;
 		}
 		
 		return counter;
