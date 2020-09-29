@@ -28,21 +28,18 @@ public class World {
 	public void expandWorld(String direction, ArrayList<ArrayList<Boolean>> cellList) {
 		switch (direction.toLowerCase()) {
 		case "north":
-			// insert arraylist full of false values at index 0 of valuesList
 			for (ArrayList<Boolean> list : cellList) {
 				list.add(0, false);
 			}
 			rows++;
 			break;
 		case "south":
-			// insert arraylist at end of valuesList
 			for (ArrayList<Boolean> list : cellList) {
 				list.add(false);
 			}
 			rows++;
 			break;
 		case "east":
-			// insert new false value to the end of every arraylist in valuesList
 			cellList.add(addNewList());
 			cols++;
 			break;
