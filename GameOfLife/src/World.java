@@ -28,7 +28,7 @@ public class World {
 				// rule #2: if cell is dead but has 3 surrounding live neighbours
 				else if (value = false && cellNumber == 3)
 					value = true;
-				// rule #3: if cell does not fufill the conditions for survival
+				// rule #3: if cell does not fulfill the conditions for survival
 				else
 					value = false;
 			}
