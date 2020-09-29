@@ -25,25 +25,25 @@ public class World {
 	}
 
 	// TODO: expand world to accommodate for infinite directions:
-	public void expandWorld(String direction) {
+	public void expandWorld(ArrayList<ArrayList<Boolean>> inputList, String direction) {
 		switch (direction.toLowerCase()) {
 		case "north":
 			// insert arraylist full of false values at index 0 of valuesList
-			valuesList.add(0, addNewList());
+			inputList.add(0, addNewList());
 			break;
 		case "south":
 			// insert arraylist at end of valuesList
-			valuesList.add(addNewList());
+			inputList.add(addNewList());
 			break;
 		case "east":
 			// insert new false value to the end of every arraylist in valuesList
-			for (ArrayList<Boolean> list : valuesList) {
+			for (ArrayList<Boolean> list : inputList) {
 				list.add(false);
 			}
 			break;
 		case "west":
 			// insert new false value to the beginning of every arraylist in valuesList
-			for (ArrayList<Boolean> list : valuesList) {
+			for (ArrayList<Boolean> list : inputList) {
 				list.add(0, false);
 			}
 			break;
@@ -98,6 +98,7 @@ public class World {
 					temp.get(i).set(j, false);
 			}
 		}
+		
 		valuesList = temp;
 
 		// clear existing Coordinates arraylist and initialize new ones
