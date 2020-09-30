@@ -141,6 +141,12 @@ public class Animation extends Application {
 			else if (key.getCode() == KeyCode.H) {
 				AlertBox.display("Information", helpText);
 			}
+			// load new seed
+			else if (key.getCode() == KeyCode.L) {
+				String output = LoadSeedBox.display();
+				world.readSeed(output);
+			}
+			// create custom seed
 		});
 
 		window.setResizable(false);
