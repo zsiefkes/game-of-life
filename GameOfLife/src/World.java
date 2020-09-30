@@ -24,8 +24,8 @@ public class World {
 				valuesList.get(i).add(false);
 			}
 		}
-		initializeCoordinatesList();
 		readSeed(filename);
+		initializeCoordinatesList();
 	}
 
 	// TODO: expand world to accommodate for infinite directions:
@@ -65,33 +65,43 @@ public class World {
 
 	// TODO: read seed for loading different starting positions of game
 	public void readSeed(String filename) {
-		/*
-		 * valuesList.get(31).set(0, true); valuesList.get(32).set(1, true);
-		 * valuesList.get(30).set(2, true); valuesList.get(31).set(2, true);
-		 * valuesList.get(32).set(2, true); valuesList.get(11).set(0, true);
-		 * valuesList.get(10).set(1, true); valuesList.get(10).set(2, true);
-		 * valuesList.get(11).set(2, true); valuesList.get(12).set(2, true);
-		 * valuesList.get(15).set(3, true); valuesList.get(15).set(4, true);
-		 * valuesList.get(15).set(5, true);
-		 */
 		try {
 			Scanner scan = new Scanner(new File(filename));
-			while (scan.hasNext()) {
+			int row = 0;
+			while (scan.hasNextLine()) {
+				row++;
+				if (row >= row - 1) {
+					expandWorld("south", valuesList);
+				}
+				int col = 0;
+				while (scan.hasNextInt()) {
+					col++;
+					if (col >= cols - 1) {
+						expandWorld("east", valuesList);
+					}
+					scan.nextInt();
+				}
+				scan.nextLine();
+			}
+			scan.close();
+			Scanner scan2 = new Scanner(new File(filename));
+			while (scan2.hasNext()) {
 				for (int y = 0; y < rows; y++) {
 					for (int x = 0; x < cols; x++) {
-						if (scan.hasNextInt()) {
-							valuesList.get(x).set(y, scan.nextInt() == 1);
+						if (scan2.hasNextInt()) {
+							valuesList.get(x).set(y, scan2.nextInt() == 1);
 						} else {
-							valuesList.get(x).set(y, false);
+							break;
 						}
 					}
-					if (scan.hasNextLine()) {
-						scan.nextLine();
+					if (scan2.hasNextLine()) {
+						scan2.nextLine();
 					} else {
 						break;
 					}
 				}
 			}
+			scan.close();
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
