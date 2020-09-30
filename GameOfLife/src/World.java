@@ -10,7 +10,7 @@ public class World {
 	private ArrayList<ArrayList<Boolean>> valuesList = new ArrayList<ArrayList<Boolean>>();
 	private ArrayList<Coordinates> coordinatesList = new ArrayList<>();
 
-	public World(int rows, int cols) {
+	public World(int rows, int cols, String filename) {
 		this.rows = rows;
 		this.cols = cols;
 		this.initRows = rows;
@@ -25,7 +25,7 @@ public class World {
 			}
 		}
 		initializeCoordinatesList();
-		readSeed("data.txt");
+		readSeed(filename);
 	}
 
 	// TODO: expand world to accommodate for infinite directions:

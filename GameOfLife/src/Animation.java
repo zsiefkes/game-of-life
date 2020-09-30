@@ -28,14 +28,10 @@ public class Animation extends Application {
 	boolean gameOn;
 	boolean normalSpeed;
 	World world;
+	String seedName = "glidergun.txt";
 	// info text for the game
-	String helpText = "SPACE: pause game\n"
-			+ "UP: toggle 2.0 speed\n"
-			+ "DOWN: toggle 0.5 speed\n"
-			+ "R: reset world\n"
-			+ "H: help box\n"
-			+ "L: load new seed\n"
-			+ "C: input custom seed";
+	String helpText = "SPACE: pause game\n" + "UP: toggle 2.0 speed\n" + "DOWN: toggle 0.5 speed\n" + "R: reset world\n"
+			+ "H: help box\n" + "L: load new seed\n" + "C: input custom seed";
 
 	private void drawGrid(Group group) {
 		for (int i = 0; i < WINDOW_HEIGHT; i += SIZE) {
@@ -78,13 +74,13 @@ public class Animation extends Application {
 	}
 
 	private void resetWorld() {
-		world = new World(rowsInput, colsInput);
+		world = new World(rowsInput, colsInput, seedName);
 	}
 
 	@Override
 	public void start(Stage window) throws Exception {
 		// TODO:
-		world = new World(rowsInput, colsInput);
+		world = new World(rowsInput, colsInput, seedName);
 		Group root = new Group();
 		drawWorld(world, root);
 		KeyFrame frame = new KeyFrame(Duration.millis(200), new EventHandler<ActionEvent>() {
@@ -143,8 +139,14 @@ public class Animation extends Application {
 			}
 			// load new seed
 			else if (key.getCode() == KeyCode.L) {
-				String output = LoadSeedBox.display();
-				world.readSeed(output);
+				if (gameOn) {
+					t.stop();
+					gameOn = false;
+				}
+				seedName = LoadSeedBox.display();
+				resetWorld();
+				t.play();
+				gameOn = true;
 			}
 			// create custom seed
 		});

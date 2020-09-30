@@ -9,7 +9,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class LoadSeedBox {
-	
+
 	static String output;
 
 	public static String display() {
@@ -26,22 +26,24 @@ public class LoadSeedBox {
 
 		// Create ComboBox
 		ChoiceBox<String> choiceBox = new ChoiceBox<>();
-		
+
 		// TODO: add different txt file names for different input seeds
-		choiceBox.getItems().addAll("Glider.txt", "Self-Fufilling Glider.txt");
-		
+		choiceBox.getItems().addAll("glidergun.txt", "Self-Fufilling Glider.txt");
+
 		// button
 		Button button = new Button("Select seed");
-		button.setOnAction(e -> output = choiceBox.getValue());
+		button.setOnAction(e -> {
+			output = choiceBox.getValue();
+			window.close();
+		});
 
 		VBox layout = new VBox(10);
-		layout.getChildren().addAll(label, choiceBox);
+		layout.getChildren().addAll(label, choiceBox, button);
 		layout.setAlignment(Pos.CENTER);
 
 		Scene scene = new Scene(layout);
 		window.setScene(scene);
 		window.showAndWait();
-
 		return output;
 	}
 
