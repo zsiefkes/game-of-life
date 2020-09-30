@@ -18,7 +18,7 @@ public class Animation extends Application {
 	// size
 	public static final int SIZE = 20;
 	// screen width
-	public static final int WINDOW_WIDTH = 700;
+	public static final int WINDOW_WIDTH = 800;
 	// screen height
 	public static final int WINDOW_HEIGHT = 400;
 	// rows and columns input
@@ -27,6 +27,7 @@ public class Animation extends Application {
 	// game animation is running boolean status
 	boolean gameOn;
 	boolean normalSpeed;
+	World world;
 	// info text for the game
 	String helpText = "SPACE: pause game\n"
 			+ "UP: toggle 2.0 speed\n"
@@ -76,22 +77,14 @@ public class Animation extends Application {
 		drawWorld(world, group);
 	}
 
-	private void resetWorld(World world) {
-		world.setRows(rowsInput);
-		world.setCols(colsInput);
-		/*
-		 * TODO: future method in World, take for loop that initializes the world's list
-		 * and put it in its own method:
-		 */
-		// world.initializeValuesList
-		world.initializeCoordinatesList();
-		world.readSeed();
+	private void resetWorld() {
+		world = new World(rowsInput, colsInput);
 	}
 
 	@Override
 	public void start(Stage window) throws Exception {
 		// TODO:
-		World world = new World(rowsInput, colsInput);
+		world = new World(rowsInput, colsInput);
 		Group root = new Group();
 		drawWorld(world, root);
 		KeyFrame frame = new KeyFrame(Duration.millis(200), new EventHandler<ActionEvent>() {
@@ -142,7 +135,7 @@ public class Animation extends Application {
 				}
 			// reset world
 			else if (key.getCode() == KeyCode.R) {
-				resetWorld(world);
+				resetWorld();
 			}
 			// help box of keyboard codes
 			else if (key.getCode() == KeyCode.H) {

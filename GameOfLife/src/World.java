@@ -1,5 +1,8 @@
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Scanner;
 
 public class World {
 
@@ -22,7 +25,7 @@ public class World {
 			}
 		}
 		initializeCoordinatesList();
-		readSeed();
+		readSeed("data.txt");
 	}
 
 	// TODO: expand world to accommodate for infinite directions:
@@ -61,30 +64,48 @@ public class World {
 	}
 
 	// TODO: read seed for loading different starting positions of game
-	public void readSeed() {
-		valuesList.get(31).set(0, true);
-		valuesList.get(32).set(1, true);
-		valuesList.get(30).set(2, true);
-		valuesList.get(31).set(2, true);
-		valuesList.get(32).set(2, true);
-		valuesList.get(11).set(0, true);
-		valuesList.get(10).set(1, true);
-		valuesList.get(10).set(2, true);
-		valuesList.get(11).set(2, true);
-		valuesList.get(12).set(2, true);
-		valuesList.get(15).set(3, true);
-		valuesList.get(15).set(4, true);
-		valuesList.get(15).set(5, true);
+	public void readSeed(String filename) {
+		/*
+		 * valuesList.get(31).set(0, true); valuesList.get(32).set(1, true);
+		 * valuesList.get(30).set(2, true); valuesList.get(31).set(2, true);
+		 * valuesList.get(32).set(2, true); valuesList.get(11).set(0, true);
+		 * valuesList.get(10).set(1, true); valuesList.get(10).set(2, true);
+		 * valuesList.get(11).set(2, true); valuesList.get(12).set(2, true);
+		 * valuesList.get(15).set(3, true); valuesList.get(15).set(4, true);
+		 * valuesList.get(15).set(5, true);
+		 */
+		try {
+			Scanner scan = new Scanner(new File(filename));
+			while (scan.hasNext()) {
+				for (int y = 0; y < rows; y++) {
+					for (int x = 0; x < cols; x++) {
+						if (scan.hasNextInt()) {
+							valuesList.get(x).set(y, scan.nextInt() == 1);
+						} else {
+							valuesList.get(x).set(y, false);
+						}
+					}
+					if (scan.hasNextLine()) {
+						scan.nextLine();
+					} else {
+						break;
+					}
+				}
+			}
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 	}
 
 	public void initializeCoordinatesList() {
 		// loop through valuesList and find true values
-		for (int i = offsetX; i < initCols+offsetX; i++) {
-			for (int j = offsetY; j < initRows+offsetY; j++) {
+		for (int i = offsetX; i < initCols + offsetX; i++) {
+			for (int j = offsetY; j < initRows + offsetY; j++) {
 				if (valuesList.get(i).get(j) == true)
 					// create new Coordinates object of x and y position of the true value
-					coordinatesList.add(new Coordinates(i-offsetX, j-offsetY));
+					coordinatesList.add(new Coordinates(i - offsetX, j - offsetY));
 			}
 		}
 	}
