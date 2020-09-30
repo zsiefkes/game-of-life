@@ -3,8 +3,7 @@ import java.util.Collections;
 
 public class World {
 
-	private int rows, cols;
-	private int initRows, initCols;
+	private int rows, cols, initRows, initCols, offsetX, offsetY;
 	private ArrayList<ArrayList<Boolean>> valuesList = new ArrayList<ArrayList<Boolean>>();
 	private ArrayList<Coordinates> coordinatesList = new ArrayList<>();
 
@@ -13,6 +12,8 @@ public class World {
 		this.cols = cols;
 		this.initRows = rows;
 		this.initCols = cols;
+		offsetX = 0;
+		offsetY = 0;
 		// initialize values list
 		for (int i = 0; i < cols; i++) {
 			valuesList.add(new ArrayList<Boolean>());
@@ -32,6 +33,7 @@ public class World {
 				list.add(0, false);
 			}
 			rows++;
+			offsetY++;
 			break;
 		case "south":
 			for (ArrayList<Boolean> list : cellList) {
@@ -47,34 +49,42 @@ public class World {
 			// insert new false value to the beginning of every arraylist in valuesList
 			cellList.add(0, addNewList());
 			cols++;
+			offsetX++;
 			break;
 		}
 	}
 
 	// helper method for expandWorld, for expanding north and south borders
 	private ArrayList<Boolean> addNewList() {
-		ArrayList<Boolean> newList = new ArrayList<>(this.cols);
-		Collections.fill(newList, false);
+		ArrayList<Boolean> newList = new ArrayList<Boolean>(Collections.nCopies(rows, false));
 		return newList;
 	}
 
 	// TODO: read seed for loading different starting positions of game
 	public void readSeed() {
-		valuesList.get(1).set(0, true);
-		valuesList.get(2).set(1, true);
-		valuesList.get(0).set(2, true);
-		valuesList.get(1).set(2, true);
-		valuesList.get(2).set(2, true);
+		valuesList.get(31).set(0, true);
+		valuesList.get(32).set(1, true);
+		valuesList.get(30).set(2, true);
+		valuesList.get(31).set(2, true);
+		valuesList.get(32).set(2, true);
+		valuesList.get(11).set(0, true);
+		valuesList.get(10).set(1, true);
+		valuesList.get(10).set(2, true);
+		valuesList.get(11).set(2, true);
+		valuesList.get(12).set(2, true);
+		valuesList.get(15).set(3, true);
+		valuesList.get(15).set(4, true);
+		valuesList.get(15).set(5, true);
 
 	}
 
 	public void initializeCoordinatesList() {
 		// loop through valuesList and find true values
-		for (int i = 0; i < valuesList.size(); i++) {
-			for (int j = 0; j < valuesList.get(i).size(); j++) {
+		for (int i = offsetX; i < initCols+offsetX; i++) {
+			for (int j = offsetY; j < initRows+offsetY; j++) {
 				if (valuesList.get(i).get(j) == true)
 					// create new Coordinates object of x and y position of the true value
-					coordinatesList.add(new Coordinates(i, j));
+					coordinatesList.add(new Coordinates(i-offsetX, j-offsetY));
 			}
 		}
 	}
