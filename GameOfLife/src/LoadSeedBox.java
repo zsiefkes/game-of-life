@@ -28,7 +28,7 @@ public class LoadSeedBox {
 		ChoiceBox<String> choiceBox = new ChoiceBox<>();
 
 		// TODO: add different txt file names for different input seeds
-		choiceBox.getItems().addAll("glidergun.txt", "spacerake.txt", "pufferfish.txt");
+		choiceBox.getItems().addAll("glidergun.txt", "spacerake.txt", "pufferfish.txt", "glidertrain.txt");
 
 		// button
 		Button button = new Button("Select seed");
