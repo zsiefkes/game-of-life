@@ -57,7 +57,7 @@ public class World {
 		}
 	}
 
-	// helper method for expandWorld, for expanding north and south borders
+	// helper method for expandWorld, for expanding east and west borders
 	private ArrayList<Boolean> addNewList() {
 		ArrayList<Boolean> newList = new ArrayList<Boolean>(Collections.nCopies(rows, false));
 		return newList;
