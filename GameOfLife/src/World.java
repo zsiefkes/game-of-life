@@ -142,7 +142,6 @@ public class World {
 		}
 		checkExpansion(temp);
 		valuesList = temp;
-
 		// clear existing Coordinates arraylist and initialize new ones
 		this.coordinatesList.clear();
 		initializeCoordinatesList();
